@@ -6,13 +6,14 @@ pipeline {
         choice(name: 'tags', choices: ['CreationEmp', 'ajoutEVent', 'CreationEmpToken'], description: 'cibler les test qu on veut executer ')
     }
     stages {
-        agent {
+        
+        stage("lancer les tetst ") {
+            agent {
         docker {
             image 'maven:ibmjava'
             args '-u root --entrypoint='
         }
-    }
-        stage("lancer les tetst ") {
+}
             steps {
                 sh 'rm -rf allure-results allure-report'
                 sh 'mvn clean compile'

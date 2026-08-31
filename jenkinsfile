@@ -12,6 +12,8 @@ pipeline {
         docker {
             image 'maven:ibmjava'
             args '-u root --entrypoint='
+            reuseNode true
+
         }
 }
             steps {

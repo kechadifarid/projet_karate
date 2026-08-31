@@ -1,4 +1,8 @@
 pipeline {
+    parameters {
+        booleanParam(name: 'UsingTag', defaultValue: true, description: 'lancer avec tag')
+        choice(name: 'tags', choices: ['CreationEmp', 'ajoutEVent', 'CreationEmpToken'], description: 'cibler les test qu on veut executer ')
+    }
     agent {
         docker {
             image 'maven:ibmjava'
@@ -9,7 +13,17 @@ pipeline {
         stage("lancer les tetst ") {
             steps {
                 sh 'mvn clean compile'
-                sh 'mvn test'
+                script {
+                    if(!params.UsingTag)
+                    {
+                         sh 'mvn test'
+
+                    }
+                    else {
+                        sh 'mvn test -Dkarate.options="--tags @'+params.tags'"'
+
+                    }
+                }
             }
         }
     }

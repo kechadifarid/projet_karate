@@ -20,7 +20,7 @@ pipeline {
 
                     }
                     else {
-                        sh 'mvn test -Dkarate.options="--tags @'+params.tags'"'
+                        sh "mvn test -Dkarate.options=\"--tags @${params.tags}\""
 
                     }
                 }
